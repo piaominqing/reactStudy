@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="liblary/react.development.js"></script>
+  <script src="liblary/react-dom.development.js"></script>
+  <script src="liblary/babel.min.js"></script>
+  <script src="liblary/data.js"></script>
+  <style>
+    .panel {
+      border: 1px solid #000;
+      width: 80%;
+    }
+
+    .title {
+      margin: 0;
+      padding: 10px;
+      background: #ccc;
+    }
+
+    p.message {
+      color: #aaa;
+    }
+
+    p.vip {
+      color: red;
+    }
+
+    .listWrap {
+      height: 0;
+      overflow: hidden;
+      transition: .5s;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="app"></div>
+
+  <script type="text/babel">
+    let names = ['张伟', '刘伟', '胡伟'];
+    // function NameLists(props) {
+    //   return props.data.map((name, index) => {
+    //     return <li key={index}>{name}</li>
+    //   })
+    // }
+    class List extends React.Component {
+
+      render() {
+        return (
+          <ul>
+            {
+              this.props.data.map((item, index) => {
+                return (
+                  <li key={index}>
+                    <p className={item.vip ? "vip" : ""}>{item.username}</p>
+                    <p className="message">{item.message}</p>
+                  </li>
+                )
+              })
+            }
+          </ul>
+
+        )
+      }
+
+    }
+    class Group extends React.Component {
+      constructor(){
+        super(...arguments)
+        this.state = {
+          show : this.props.show
+        }
+      }
+      toggle(){
+        let show = !this.state.show
+        this.setState({show})
+        if(show){
+          this.props.onChange(this.props.index)
+        }
+      }
+      setShowList(show){
+        let list = this.refs.list
+        if(show){
+          list.style.height = list.scrollHeight + "px";
+        }else{
+          list.style.height = 0;
+        }
+      }
+      componentDidMount(){
+        this.setShowList(this.state.show)
+      }
+      shouldComponentUpdate(nextProps,nextState){
+        if(this.state.show !== nextProps.show){
+          this.setState({show:nextProps.show})
+        }
+        if(this.state.show !== nextState.show){
+          this.setShowList(nextState.show)
+        }
+        return false
+      }
+      render() {
+        return (
+          <div onClick={this.toggle.bind(this)}>
+            <h2 className="title">{this.props.data.name}</h2>
+            <div className="listWrap" ref="list">
+              <List data={this.props.data.list}/>
+            </div>
+          </div>
+        )
+      }
+    }
+    class GroupList extends React.Component {
+      constructor(){
+        super(...arguments)
+        this.state = {
+          showFlagList: [true, false, false]
+        }
+        this.onChange = this.onChange.bind(this)
+      }
+      onChange(i){
+        let showFlagList = this.state.showFlagList.map((flag, index)=>{
+          if(i === index){
+            return true
+          }
+          return false
+        })
+        
+        this.setState({showFlagList})
+      }
+      render() {
+        return (
+          <div className="panel">
+            {
+              Object.keys(this.props.data).map((property, index) => {
+                return (<Group 
+                          data={this.props.data[property]} 
+                          key={index} 
+                          show={this.state.showFlagList[index]} 
+                          onChange={this.onChange}
+                          index={index}
+                        />)
+              })
+            }
+          </div>
+        )
+      }
+    }
+    ReactDOM.render(
+      <GroupList data={dataList} />,
+      document.getElementById("app"))
+  </script>
+
+</body>
+
+</html>

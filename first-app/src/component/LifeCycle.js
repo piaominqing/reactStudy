@@ -25,6 +25,7 @@ export default class LifeCycle extends Component {
         const {counter, addCounter} = this.state
         return (
             <div>
+                <h3>LifeCycle Page</h3>
                 <p>{counter}</p>
                 <button onClick={this.addCounter}>add</button>
                 <Child counter={counter}></Child>

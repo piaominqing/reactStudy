@@ -7,10 +7,11 @@ import {DefaultSlot, NametSlot} from './component/Slot'
 import Redux from './component/Redux'
 import ReactRedux from './component/ReactRedux'
 import ReactRouter from './component/ReactRouter'
+import PureComponentPage,{ComponentPage} from './component/PureComponentPage'
 function App() {
   return (
     <div className="App">
-      {/* <SetStatePage/>
+      <SetStatePage/>
       <LifeCycle/>
       <FunctionComponent/>
       <DefaultSlot>DefaultSlot</DefaultSlot>
@@ -23,8 +24,10 @@ function App() {
         }
       }</NametSlot>
       <Redux/>
-      <ReactRedux/> */}
+      <ReactRedux/>
       <ReactRouter/>
+      <PureComponentPage/>
+      <ComponentPage/>
     </div>
   );
 }

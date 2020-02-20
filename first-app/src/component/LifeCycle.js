@@ -22,7 +22,7 @@ export default class LifeCycle extends Component {
     // }
     render(){
         console.log('render')
-        const {counter, addCounter} = this.state
+        const {counter} = this.state
         return (
             <div>
                 <h3>LifeCycle Page</h3>

@@ -8,10 +8,12 @@ import Redux from './component/Redux'
 import ReactRedux from './component/ReactRedux'
 import ReactRouter from './component/ReactRouter'
 import PureComponentPage,{ComponentPage} from './component/PureComponentPage'
+import MyHook from './component/MyHook'
+import UseMemo from './component/UseMemo'
 function App() {
   return (
     <div className="App">
-      <SetStatePage/>
+      {/* <SetStatePage/>
       <LifeCycle/>
       <FunctionComponent/>
       <DefaultSlot>DefaultSlot</DefaultSlot>
@@ -28,6 +30,8 @@ function App() {
       <ReactRouter/>
       <PureComponentPage/>
       <ComponentPage/>
+      <MyHook/> */}
+      <UseMemo/>
     </div>
   );
 }

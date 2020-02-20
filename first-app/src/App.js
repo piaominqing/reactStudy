@@ -5,6 +5,7 @@ import SetStatePage from './component/SetStatePage'
 import LifeCycle from './component/LifeCycle'
 import FunctionComponent from './component/FunctionComponent'
 import {DefaultSlot, NametSlot} from './component/Slot'
+import Redux from './component/Redux'
 function App() {
   return (
     <div className="App">
@@ -20,6 +21,7 @@ function App() {
           txt:'NametSlot'
         }
       }</NametSlot>
+      <Redux/>
     </div>
   );
 }

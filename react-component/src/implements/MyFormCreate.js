@@ -12,7 +12,13 @@ export default function MyFormCreate(Cmp){
     }
     handleChange = e => {
       let {name, value} = e.target
-      this.setState({[name]:value})
+      this.validate({
+        ...this.state,
+        [name]:value
+      })
+      // this.setState({[name]:value}, ()=>{
+      //   this.validate()
+      // })
     }
     getFieldDecorator = (field,option) => {
       this.options[field] = option
@@ -36,8 +42,7 @@ export default function MyFormCreate(Cmp){
     getFieldValue = (field) => {
       return this.state[field]
     }
-    validateFields = callback => {
-      const state = {...this.state}
+    validate = (state) => {
       let desc = {}
       let values = {}
       for(let field in this.options){
@@ -50,14 +55,19 @@ export default function MyFormCreate(Cmp){
       // 创建Schema实例
       const schema = new Schema(desc);
       schema.validate(values, error => {
-        this.setState({error})
-        if (error) {
-          callback(error,state)
-        } else {
-          // 校验通过
-          callback(undefined, state)
-        }
+        this.setState({...state,error})
+        
       })
+    }
+    validateFields = callback => {
+      const state = {...this.state}
+      const {error} = this.state
+      if (error) {
+        callback(error,state)
+      } else {
+        // 校验通过
+        callback(undefined, state)
+      }
     }
     render(){
       return (

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Form, Input, Button} from 'antd'
+import { Button} from 'antd'
 import MyFormCreate from '../implements/MyFormCreate'
 
 const nameRules = {required: true, message:'please input ur name'}
@@ -23,20 +23,14 @@ class AntdFormPage extends Component {
     const {getFieldDecorator} = this.props
     return (
       <div>
-        <h3>AntdFormPage</h3>
-        <Form>
-          <Form.Item>
+        <h3>MyFormPage</h3>
             {getFieldDecorator('name', {rules: [nameRules]})(
-              <Input placeholder='input username'></Input>
+              <input placeholder='input username'></input>
             )}
-          </Form.Item>
-          <Form.Item>
             {getFieldDecorator('password', {rules: [passwordRules]})(
-              <Input type='password' placeholder='input password'></Input>
+              <input type='password' placeholder='input password'></input>
             )}
-          </Form.Item>
           <Button type='primary' onClick={this.submit}>提交</Button>
-        </Form>
       </div>
     )
   }

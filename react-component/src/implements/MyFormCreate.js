@@ -5,7 +5,9 @@ export default function MyFormCreate(Cmp){
   return class extends Component{
     constructor(props){
       super(props)
-      this.state = {}
+      this.state = {
+        error: []
+      }
       this.options= {}
     }
     handleChange = e => {
@@ -14,12 +16,18 @@ export default function MyFormCreate(Cmp){
     }
     getFieldDecorator = (field,option) => {
       this.options[field] = option
+      const fieldErrors = this.state.error.filter(item=> item.field === field)
       return InputCmp => (
-        React.cloneElement(InputCmp,{
-          name:field,
-          value: this.state[field] || '',
-          onChange: this.handleChange
-        })
+        <div>
+          {React.cloneElement(InputCmp,{
+            name:field,
+            value: this.state[field] || '',
+            onChange: this.handleChange
+          })}
+          {
+            fieldErrors.map((err,index)=><p key={index}>{err.message}</p>)
+          }
+        </div>
       )
     }
     getFieldsValue = () => {
@@ -30,26 +38,26 @@ export default function MyFormCreate(Cmp){
     }
     validateFields = callback => {
       const state = {...this.state}
+      let desc = {}
+      let values = {}
       for(let field in this.options){
-        // 规则
-        const rules = this.options[field]
-        // 当前值
-        const value = state[field];
-
         // 校验描述对象
-        const desc = { [field]: rules };
-        // 创建Schema实例
-        const schema = new Schema(desc);
+        desc[field] = this.options[field].rules
+
+        values[field] = state[field]
         
-        schema.validate({ [field]: value }, errors => {
-          if (errors) {
-            console.log(errors[0].message)
-          } else {
-            // 校验通过
-            console.log('success')
-          }
-        })
       }
+      // 创建Schema实例
+      const schema = new Schema(desc);
+      schema.validate(values, error => {
+        this.setState({error})
+        if (error) {
+          callback(error,state)
+        } else {
+          // 校验通过
+          callback(undefined, state)
+        }
+      })
     }
     render(){
       return (

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 
 /**
  * connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])
@@ -20,17 +21,47 @@ import {connect} from 'react-redux'
  * Object.assign({}, ownProps, stateProps, dispatchProps) 的结果
  */
 export default connect(
-  // mapStateToProps
-  state => ({num:state})
+  // mapStateToProps(state, [ownProps]): stateProps] (Function) 
+  // ownprops <ReactReduxPage num='3' /> 传进来的属性。当props变更时 mapStateToProps逻辑执行一遍，所以影响性能 谨慎使用
+  (state,ownprops) => {
+    console.log(ownprops)
+    return {num:state}
+  },
+  // mapDispatchToProps(dispatch, [ownProps]): dispatchProps] (Object or Function):
+  (dispatch,ownProps) => {
+    console.log('ownProps', ownProps)
+    let dispatchs = bindActionCreators({
+      add: () => ({type: 'ADD'}),
+      minus: () => ({type: 'MINUS'})
+    }, dispatch)
+    return {
+      dispatch,
+      ...dispatchs
+    }
+    // mergeProps(stateProps, dispatchProps, ownProps): props] (Function) 
+    // (stateProps, dispatchProps, ownProps) => {
+    //   console.log("mergeProps", stateProps, dispatchProps, ownProps); //sy-log
+    //   return {
+    //     omg: "omg", 
+    //     ...stateProps, 
+    //     ...dispatchProps, 
+    //     ...ownProps
+    //   }
+    // }
+  }
 )
 ( class ReactReduxPage extends Component {
   render() { 
     console.log('props:', this.props);
-    
+    const {add, minus} = this.props
     return ( 
       <div>
         <h3>ReactReduxPage</h3>
         <p>{this.props.num}</p>
+        <button onClick={()=>this.props.dispatch({type:'ADD'})}>add</button>
+        <button onClick={()=>this.props.dispatch({type:'MINUS'})}>minus</button>
+        <button onClick={add}>add</button>
+        <button onClick={minus}>minus</button>
       </div>
      );
   }

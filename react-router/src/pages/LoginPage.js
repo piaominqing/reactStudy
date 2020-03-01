@@ -12,6 +12,7 @@ class LoginPage extends Component {
       return ( 
         <div>
           <h3>LoginPage</h3>
+          <button>登录</button>
         </div>
        );
     }

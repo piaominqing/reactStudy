@@ -7,6 +7,7 @@ class UserPage extends Component {
     return ( 
       <div>
         <h3>User Page</h3>
+        <button>注销</button>
       </div>
      );
   }

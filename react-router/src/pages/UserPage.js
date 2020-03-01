@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 
-class UserPage extends Component {
+export default connect(
+  ({user})=>({user}) => ({isLogin: user.isLogin}),
+  {
+    logout: () => ({type: "LOGOUT_SUCCESS"})
+  }
+)(class UserPage extends Component {
   state = {  }
   render() { 
-    console.log(this.props)
+    const {logout} = this.props
     return ( 
       <div>
         <h3>User Page</h3>
-        <button>注销</button>
+        <button onClick={logout}>注销</button>
       </div>
      );
   }
-}
- 
-export default UserPage;
+})

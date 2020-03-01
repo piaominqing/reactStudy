@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
+import { connect } from 'react-redux'
 
-class PrivateRoute extends Component {
+export default connect(
+  ({user})=>({user}) => ({isLogin: user.isLogin})
+)(class PrivateRoute extends Component {
   state = {  }
   render() { 
     const {isLogin, path, component} = this.props
@@ -11,6 +14,4 @@ class PrivateRoute extends Component {
       return <Redirect to={{pathname: '/login', state: {redirect: path}}}></Redirect>
     }
   }
-}
- 
-export default PrivateRoute;
+})

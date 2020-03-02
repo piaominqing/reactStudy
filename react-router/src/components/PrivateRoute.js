@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router';
+// import { Route, Redirect } from 'react-router';
+import { Route, Redirect } from '../implements/my-react-router'
 import { connect } from 'react-redux'
 
 export default connect(
-  ({user})=>({user}) => ({isLogin: user.isLogin})
+  ({user}) => ({isLogin: user.isLogin})
 )(class PrivateRoute extends Component {
   state = {  }
   render() { 

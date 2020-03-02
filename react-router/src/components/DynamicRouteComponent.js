@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link, Route } from 'react-router-dom';
+// import { Link, Route } from 'react-router-dom';
+import { Link, Route } from "../implements/my-react-router";
 export default function DynamicRouteComponent(props){
   const {id} = props.match.params
   return (

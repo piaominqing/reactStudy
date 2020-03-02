@@ -1,5 +1,6 @@
 import React, { Component } from "react"; 
-import { BrowserRouter as Router, Link, Route } from "react-router-dom";
+// import { BrowserRouter as Router, Link, Route } from "react-router-dom";
+import { BrowserRouter as Router, Link, Route } from "../implements/my-react-router";
 function ListItemLink({ to, name, ...rest }) {
   return (
   <Route

@@ -12,6 +12,8 @@ function Routes() {
         <Router>
             <Switch>
                 <Route exact path="/" component={HomePage} />
+                <Route exact path="/cart" component={HomePage} />
+                <Route exact path="/olist" component={HomePage} />
                 {/* <Route path="/mytaobao" component={MyTaobaoPage} /> */}
                 <PrivateRoute path="/mytaobao" component={MyPage} />
                 <Route path="/login" component={LoginPage} />

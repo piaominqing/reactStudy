@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-// import {connect} from 'react-redux'
-import {connect} from '../implements/my-react-redux'
+import {connect} from 'react-redux'
+// import {connect} from '../implements/my-react-redux'
 import {bindActionCreators} from 'redux'
 
 /**

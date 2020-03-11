@@ -2,7 +2,8 @@
 // import ReactDOM from "react-dom";
 import React from "./implements/react/ReactElement";
 import Component from "./implements/react/ReactComponent";
-import ReactDOM from "./implements/react-dom/ReactDom";
+// import ReactDOM from "./implements/react-dom/ReactDom";
+import ReactDOM from "./implements/react-dom/ReactDom-fiber";
 import "./index.css";
 
 function FunctionComponent({name}) {
@@ -34,7 +35,7 @@ const jsx = (
     <FunctionComponent name="function" />
     <ClassComponent name="class" />
     <ClassComponent />
-    <>
+    {/* <>
       <h5>文本1</h5>
       <h5>文本2</h5>
     </>
@@ -46,7 +47,7 @@ const jsx = (
            <p>{item}</p>
          </div>
        );
-     })} 
+     })}  */}
   </div>
 );
 
